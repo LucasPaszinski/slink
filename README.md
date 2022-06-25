@@ -1,10 +1,30 @@
 # slink
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed to Shorten Links -> slinks and redirect.
 
 ## Usage
+Run in the interactive REPL
 
-FIXME
+Compile all modules and start the server
+
+You can use you http-client to make the calls
+
+POST http://localhost:3000/links/create
+request: 
+{
+ "url": "https://www.ahnegao.com.br",
+ "user_id": "12"
+}
+
+response: {
+ "url": "https://www.ahnegao.com.br",
+ "surl": "iXg"
+}
+
+GET http://localhost:3000/iXg
+response: {"redirects-to-link": "https://www.ahnegao.com.br"}
+
+
 
 ## License
 
