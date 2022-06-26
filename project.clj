@@ -7,5 +7,7 @@
                  [ring/ring-core "1.8.2"]
                  [ring/ring-jetty-adapter "1.8.2"]
                  [metosin/reitit "0.5.18"]
-                 [metosin/muuntaja "0.6.8"]]
+                 [metosin/muuntaja "0.6.8"]
+                 [com.xtdb/xtdb-core "1.20.0"]
+                 [com.xtdb/xtdb-rocksdb "1.20.0"]]
   :repl-options {:init-ns slink.core})
