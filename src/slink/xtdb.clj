@@ -10,10 +10,11 @@
 (def user-id1 (uuid))
 (def user-id2 (uuid))
 
+user-id1
+user-id2
+
 (def lucas {:xt/id user-id1
             :user/name "Lucas Lopes Paszinski"})
-
-lucas
 
 (def naty   {:xt/id user-id2
              :user/name "Natalia Cardoso Flores"})
@@ -36,29 +37,33 @@ lucas
 
 
 ;; GET LINK BY URL AND USER_ID
-(->
- node
- (xt/db)
- (xt/q
-  '{:find [e]
-    :where [[e :link/url url]
-            [e :link/user-id user-id]]
-    :in [url user-id]}
-  "www.google.com"
-  "260d0208-31ec-43f6-baad-78c2be54f348"))
+
+(xt/q (xt/db node)
+      '{:find [e]
+        :where [[e :link/url url]
+                [e :link/user-id user-id]]
+        :in [url user-id]}
+      "www.google.com"
+      "db61d59f-2355-409b-8e35-04b41744be4d")
+
+;; To pull the whole document
+(xt/q (xt/db node)
+      '{:find [(pull e [*])]
+        :where [[e :link/url url]
+                [e :link/user-id user-id]]
+        :in [url user-id]}
+      "www.google.com"
+      "db61d59f-2355-409b-8e35-04b41744be4d")
 
 ;; GET LINK WHERE SURL IS "1"
-(-> node
-    (xt/db)
-    (xt/q '{:find [e]
-            :where [[e :link/surl surl]]
-            :in [surl]}
-          "1"))
+
+(xt/q (xt/db node) '{:find [(pull e [:link/url])]
+                     :where [[e :link/surl surl]]
+                     :in [surl]}
+      "1")
 
 ;; JOIN?
-(-> node
-    (xt/db)
-    (xt/q '{:find [e1 e2]
-            :where [[e1 :xt/id id]
-                    [e2 :link/user-id id]]}))
 
+(xt/q (xt/db node) '{:find [e1 e2]
+                     :where [[e1 :xt/id id]
+                             [e2 :link/user-id id]]})
